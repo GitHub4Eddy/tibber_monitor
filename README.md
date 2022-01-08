@@ -43,6 +43,18 @@ If you have more than one home in your subscription, you need to fill in your ho
 Tibber API documentation: https://developer.tibber.com/docs/guides/calling-api
 Tibber API explorer: https://developer.tibber.com/explorer
 
+Changes version 1.0 (8th Januari 2022)
+- Reduced max and min price and percentage to two decimals digits 
+- Solved issue with empty hourly energy
+- Added the prices to the log text of the child devices +1 +2 +3 +4 +5
+- Added percentages to the hourly prices in the labels
+- Added percentages to the minimum and maximum prices in the labels
+- Changed the abreviation to the latest moment (display in properties and labels) to get the (theoretical) most accureate calculation
+- Changed the default interval to 930 seconds to update more often and have less issues in case Tibber doesn't respond
+
+Changes version 0.6 (1st January 2022)
+- Solved bug that didn't cleaned up the labels 
+
 Changes version 0.5 (1st Januari 2021)
 - Changed main device to generic.device
 - Changed Tax calculations
@@ -64,7 +76,7 @@ Variables (mandatory and created automatically):
 - token = Authorization token (see the Tibber website: https://developer.tibber.com)
 - homeNr = Tibber home (nodes) number if you have more than one home (default = 1)
 - extraCost = Extra cost per kWh for Tibber and Cable owner, decimals with dot, not komma (default = 0)
-- interval = Interval in seconds to get the data from the Tibber Platform. The default is 3600 seconds (60 minutes). (Tibber has a rate limit of 100 requests in 5 minutes per IP address)
+- interval = Interval in seconds to get the data from the Tibber Platform. The default is 930 seconds (15 minutes and 30 seconds). (Tibber has a rate limit of 100 requests in 5 minutes per IP address)
 - debugLevel = Number (1=some, 2=few, 3=all, 4=simulation mode) (default = 1)
 - setGlobalVar = true or false, whether you want tu use the Global Variables (default = false)
 - icon = User defined icon number (add the icon via another device and lookup the number) (default = 0)
