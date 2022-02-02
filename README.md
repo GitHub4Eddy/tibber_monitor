@@ -18,11 +18,17 @@ Child devices are available for:
 - Actual price now
 - Minumum price today (for the next 12 hours)
 - Maximum price today (for the next 12 hours)
+- Average price
 - Percentage +1 hour (compaired to actual price now, positive value means an increase of the price, negative value means a decrease of the price)
 - Percentage +2 hour
 - Percentage +3 hour
 - Percentage +4 hour
 - Percentage +5 hour
+- Percentage +6 hour
+- Percentage +7 hour
+- Percentage +8 hour
+- Percentage +9 hour
+- Percentage +10 hour
 
 These values can be used to control appliances according to the lowest and forecast prices during the day. 
 
@@ -42,6 +48,14 @@ If you have more than one home in your subscription, you need to fill in your ho
 
 Tibber API documentation: https://developer.tibber.com/docs/guides/calling-api
 Tibber API explorer: https://developer.tibber.com/explorer
+
+Changes version 1.2 (2nd February 2022)
+- Solved a nasty bug with the percentage in the labels for tomorrow prices
+- Added extra child devices for percentage +6 +7 +8 +9 +10 hour
+
+Changes version 1.1 (29th January 2022)
+- Added average price calculation and child device (made by Fibaro forum member drzordz)
+- Added QuickApp variable to setup amount of hours to show the next prices (made by Fibaro forum member drzordz)
 
 Changes version 1.0 (8th Januari 2022)
 - Reduced max and min price and percentage to two decimals digits 
@@ -80,3 +94,4 @@ Variables (mandatory and created automatically):
 - debugLevel = Number (1=some, 2=few, 3=all, 4=simulation mode) (default = 1)
 - setGlobalVar = true or false, whether you want tu use the Global Variables (default = false)
 - icon = User defined icon number (add the icon via another device and lookup the number) (default = 0)
+- forNextHour = How many hours forward it will check (default = 12)
