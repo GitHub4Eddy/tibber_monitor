@@ -4,22 +4,24 @@ This QuickApp gets todays and tomorrows energy prices and energy consumption fro
 Next to the current prices the lowest, highest and average price for the next hours is calculated.
 Tax and extra cost (cable owner) are included in the hourly, daily, monthly, yearly and total cost.  
 All values are displayed in the labels. 
+The Energy Panel is updated with the hourly prices and energy consumption. 
 
 Child devices are available for:
-- Hourly energy usage
-- Hourly energy cost
-- Todays energy usage (com.fibaro.energyMeter with automatic rateType=consumption for Fibaro Energy Panel)
-- Todays energy cost (including extra cost)
-- Monthly energy usage
-- Monthly energy cost
-- Yearly energy usage
-- Yearly energy cost
-- Total energy usage
-- Total energy cost
-- Actual price now
-- Minimum price (of the next [forNextHour] hours)
-- Maximum price (of the next [forNextHour] hours)
-- Average price (calculated over the current prices and the next 10 prices)
+Child devices are available for:
+- Hourly Energy 
+- Hourly Cost
+- Daily Energy  
+- Daily Cost (including extra cost)
+- Monthly Energy 
+- Monthly Cost
+- Yearly Energy 
+- Yearly Cost
+- Total Energy (com.fibaro.energyMeter with automatic rateType=consumption for Fibaro Energy Panel)
+- Total Cost
+- Current Price
+- Minimum Price (of the next [forNextHour] hours)
+- Maximum Price (of the next [forNextHour] hours)
+- Average Price (calculated over the current prices and the next 10 prices)
 - Percentage +0 hour (positive value means an increase of the price, negative value means a decrease of the price)
 - Percentage +1 hour 
 - Percentage +2 hour
@@ -52,6 +54,13 @@ If information about the users homes is needed you add the appropiate HOME scope
 Tomorrow values are available from 13:00 hour
 If you have more than one home in your subscription, you need to fill in your home number the change between your homes. 
 
+Use this QuickApp at your own risk. You are responsible for ensuring that the information provided via this QuickApp do not contain errors. 
+Tibber is a registered trademark being the property of TIBBER. TIBBER reserves all rights to the registered trademarks.
+Information which is published on TIBBER’s websites belongs to TIBBER or is used with the permission of the rights holder. 
+Making of copies, presentations, distribution, display or any other transfer of the information on the website to the public is, except for strictly private use, prohibited unless done with the consent of TIBBER. 
+Published material on dedicated TIBBER press websites, intended for public use, is exempt from the consent requirement.
+Also see: https://tibber.com/en/legal-notice
+
 Price levels are based on trailing price average (3 days for hourly values and 30 days for daily values)
 - NORMAL - The price is greater than 90 % and smaller than 115 % compared to average price.
 - CHEAP - The price is greater than 60 % and smaller or equal to 90 % compared to average price.
@@ -62,6 +71,15 @@ Price levels are based on trailing price average (3 days for hourly values and 3
 Tibber API documentation: https://developer.tibber.com/docs/guides/calling-api
 Tibber API explorer: https://developer.tibber.com/explorer
 
+
+Changes version 2.0 (25th May 2022)
+- Changed the device for the energy panel from the Daily Energy to the Total Energy child device. Because Tibber reports always the past hour at the start of the new hour (so always too late) and the Energy panel and the Daily Energy child devices both resets at midnight and the Total Energy child device doesn't resets, that prevents the last hour from not getting into the energy panel. Thanks to @JcBorgs for analysing and testing. 
+- Added workaround with the help of @JcBorgs for a Tibber API bug in 00-01 hour consumption (energy and cost can change to "null" during the day) 
+- Added workaround for empty Tibber responses between 00:00 and 00:05 hour with help of @JcBorgs
+- Added insert of hour-1 price in Energy Panel (can be turned on or off) with help of @JcBorgs
+- Changed the name of all child devices Percentage to dynamic names like "At hour 16:00", "At hour 17:00", etc. with  help of @jgab and @JcBorgs
+- Changed handling of no response from Tibber
+- Removed user defined icon (not necessary anymore)
 
 Changes version 1.3 (6th February 2022)
 - For easy use in blockscenes added Global Variables for the levels (CHEAP, etc) for the current price and percentages +0, +1, +2, +3, +4, +5, +6, +7, +8, +9 and +10 hour. (Activate the global variables with the QuickApp Variable setGlobalVar = true)
@@ -111,9 +129,13 @@ Variables (mandatory and created automatically):
 - token = Authorization token (see the Tibber website: https://developer.tibber.com)
 - homeNr = Tibber home (nodes) number if you have more than one home (default = 1)
 - extraCost = Extra cost per kWh for Tibber and Cable owner, decimals with dot, not komma (default = 0)
-- interval = Interval in seconds to get the data from the Tibber Platform. The default is 930 seconds (15 minutes and 30 seconds). (Tibber has a rate limit of 100 requests in 5 minutes per IP address)
+- interval = Interval in seconds to get the data from the Tibber Platform. The QuickApp should run at least once an hour. The default is 930 seconds (15 minutes and 30 seconds). (Tibber has a rate limit of 100 requests in 5 minutes per IP address)
 - debugLevel = Number (1=some, 2=few, 3=all, 4=simulation mode) (default = 1)
-- setGlobalVar = true or false, whether you want tu use the Global Variables (default = false)
+- setGlobalVar = true or false, whether you want to use the Global Variables (default = false)
 - setPercentage = current or average, whether you want to relate to the average price or current price for the percentage calculation (default = average)
-- icon = User defined icon number (add the icon via another device and lookup the number) (default = 0)
-- forNextHour = How many hours forward it will check (default = 12)
+- setEnergyPanel = inserting prices in Energy Panel (default = false)
+- forNextHour = How many hours forward it will show the prices in the labels (default = 12, minimum = 12, maximum = 35)
+- workaroundE01 = Stores the value of the 00-01 hour energy for a Tibber API bug workaround (default = 0)
+- workaroundC01 = Stores the value of the 00-01 hour cost for a Tibber API bug workaround (default = 0)
+- workaroundPnn = Stores the hour-1 price for the Energy Panel (default = 0)
+- workaroundP23 = Stores the 23h price for the Energy Panel (default = 0)
