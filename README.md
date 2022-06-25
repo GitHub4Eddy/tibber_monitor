@@ -72,6 +72,13 @@ Tibber API documentation: https://developer.tibber.com/docs/guides/calling-api
 Tibber API explorer: https://developer.tibber.com/explorer
 
 
+Changes version 2.1 (25th June 2022)
+- Changed the child device names Hourly Energy and Hourly Cost to Hour-1 Energy and Hour-1 Cost, because they actually are from the previous hour
+- Added Global Variables for Prices 0-10 hour
+- Removed Global Variable for Current Price Level, the Current Price Level is also available in the Global Variable for all 0-10 hour levels
+- Added QuickApp variable currentPrice to insert the current price in the Energy Panel if you also use the Tibber Live QuickApp. Otherwise the hour+1 price is interted. 
+
+
 Changes version 2.0 (25th May 2022)
 - Changed the device for the energy panel from the Daily Energy to the Total Energy child device. Because Tibber reports always the past hour at the start of the new hour (so always too late) and the Energy panel and the Daily Energy child devices both resets at midnight and the Total Energy child device doesn't resets, that prevents the last hour from not getting into the energy panel. Thanks to @JcBorgs for analysing and testing. 
 - Added workaround with the help of @JcBorgs for a Tibber API bug in 00-01 hour consumption (energy and cost can change to "null" during the day) 
@@ -134,6 +141,7 @@ Variables (mandatory and created automatically):
 - setGlobalVar = true or false, whether you want to use the Global Variables (default = false)
 - setPercentage = current or average, whether you want to relate to the average price or current price for the percentage calculation (default = average)
 - setEnergyPanel = inserting prices in Energy Panel (default = false)
+- currentPrice = inserting current prices (if you also use Tibber Live) in Energy Panel (default = false)
 - forNextHour = How many hours forward it will show the prices in the labels (default = 12, minimum = 12, maximum = 35)
 - workaroundE01 = Stores the value of the 00-01 hour energy for a Tibber API bug workaround (default = 0)
 - workaroundC01 = Stores the value of the 00-01 hour cost for a Tibber API bug workaround (default = 0)
